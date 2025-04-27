@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: edu
+    env: node
+    plan: free
+    buildCommand: "npm run prepare && npm run install-deps && npm run build"
+    startCommand: "node app/index.js"
+    healthCheckPath: "/health"
+    envVars:
+      - key: NODE_ENV
+        value: production
+    autoDeploy: true
+    regions:
+      - oregon
+      - frankfurt
+    routes:
+      - type: http
+        source: /
+        destination: /
